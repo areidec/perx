@@ -13,13 +13,13 @@ class App extends Component {
 
   componentDidMount() {
     const { getCars } = this.props
-    getCars(1)
+    getCars(1).then(() => getCars(3))
   }
 
   render() {
     const { Title } = Typography
     const { getCars, cars, dealers, currentPage, loading } = this.props
-    console.log(this.props)
+
     return (
       <Row style={{maxWidth: '1200px', margin: '0 auto'}}>
         <Col span={24}>

@@ -9,8 +9,8 @@ const initialState = {
   totalPages: null,
   hasPages: [],
   currentPage: 1,
-  cars: [],
-  dealers: []
+  cars: {},
+  dealers: {}
 }
 
 const rootReducer = (
@@ -19,32 +19,33 @@ const rootReducer = (
 ) => {
   switch(type) {
     case REQUEST_CARS:
-      const newPages = state.hasPages.indexOf(payload.currentPage) === -1 ? 
-        [...state.hasPages, payload.currentPage] : state.hasPages
       return {
         ...state,
         currentPage: payload.currentPage,
         loading: payload.loading,
-        hasPages: newPages
       }
     case RECIEVE_CARS:
+      const newPages = state.hasPages.indexOf(payload.currentPage) === -1 ? 
+      [...state.hasPages, payload.currentPage] : state.hasPages
       return {
         ...state,
         totalPages: payload.totalPages ?? state.totalPages,
-        cars: [
+        cars: {
           ...state.cars,
           ...payload.cars
-        ]
+        },
+        hasPages: newPages,
+        currentPage: payload.currentPage
         
       }
     case RECIEVE_DEALERS:
       return {
         ...state,
         loading: payload.loading,
-        dealers: [
+        dealers: {
           ...state.dealers,
           ...payload.newDealers
-        ]
+        }
       }
     default:
       return state

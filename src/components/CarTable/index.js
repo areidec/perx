@@ -4,14 +4,12 @@ import { Table } from 'antd'
 export default class CarTable extends Component {
   render() {
     const { pagination, cars, dealers, loading } = this.props
-    const { current, pageSize } = pagination
-    const firstIndex = current * pageSize - pageSize
-    const lastIndex = current * pageSize - 1
-    let dataWithDealer = cars.slice(firstIndex, lastIndex)
+    const { current } = pagination
+    let dataWithDealers = []
 
-    dataWithDealer.forEach(el => {
-      el.dealerData = dealers.find(el2 => el2 === el.dealer)
-    })
+    if(!loading) {
+
+    }
 
     const columns = [
       {
@@ -20,25 +18,25 @@ export default class CarTable extends Component {
       },
       {
         title: 'Brand',
-        dataIndex: 'Brand',
+        dataIndex: 'brand',
       },
       {
         title: 'Model',
-        dataIndex: 'Model',
+        dataIndex: 'model',
       },
       {
         title: 'Grade',
-        dataIndex: 'Grade',
+        dataIndex: 'grade',
       },
       {
         title: 'Dealer',
-        dataIndex: 'Dealer',
+        dataIndex: 'dealerData.name',
       },
-    ];
+    ]
 
 
     return(
-      <Table pagination={pagination} columns={columns} loading={loading} />
+      <Table pagination={pagination} columns={columns} loading={loading} dataSource={dataWithDealers} />
     )
   }
 }
