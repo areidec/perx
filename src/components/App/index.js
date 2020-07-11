@@ -13,12 +13,12 @@ class App extends Component {
 
   componentDidMount() {
     const { getCars } = this.props
-    getCars(1).then(() => getCars(3))
+    getCars(0)
   }
 
   render() {
     const { Title } = Typography
-    const { getCars, cars, dealers, currentPage, loading } = this.props
+    const { getCars, cars, dealers, currentPage, loading , totalPages} = this.props
 
     return (
       <Row style={{maxWidth: '1200px', margin: '0 auto'}}>
@@ -29,8 +29,9 @@ class App extends Component {
         </Col>
         <Col span={24}>
         <CarTable 
-          pagination={{ current: currentPage, pageSize: 10 }}
+          pag={{ current: currentPage, pageSize: 10, total: totalPages }}
           cars={cars} dealers={dealers} loading={loading}
+          getCars={getCars}
         />
         </Col>
       </Row>

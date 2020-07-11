@@ -40,7 +40,9 @@ export const getCars = (page) => async (dispatch, getState) => {
     let dealersIds = []
     res.data.forEach(car => {
       if(dealersIds.indexOf(car.dealer) === -1) {
-        dealersIds.push(car.dealer)
+        if(car.dealer) {
+          dealersIds.push(car.dealer)
+        }
       }
     });
   
@@ -49,7 +51,7 @@ export const getCars = (page) => async (dispatch, getState) => {
     let payload = {}
     let cars = {}
     if(!getState().totalPages) {
-      payload.totalPages = Math.ceil(+res.headers['x-total-count'] / 10)
+      payload.totalPages = Math.ceil(+res.headers['x-total-count'])
     }
 
     if (getState().hasPages.indexOf(page) === -1) {
@@ -68,8 +70,11 @@ export const getCars = (page) => async (dispatch, getState) => {
 
       payload.cars = cars
       payload.currentPage = page
-    
       dispatch({ type: RECIEVE_CARS, payload })
     }
+  } else {
+    dispatch({ type: RECIEVE_CARS, payload: {
+      currentPage: page
+    }})
   }
 }

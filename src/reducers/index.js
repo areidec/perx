@@ -8,7 +8,7 @@ const initialState = {
   loading: true,
   totalPages: null,
   hasPages: [],
-  currentPage: 1,
+  currentPage: 0,
   cars: {},
   dealers: {}
 }
@@ -21,8 +21,7 @@ const rootReducer = (
     case REQUEST_CARS:
       return {
         ...state,
-        currentPage: payload.currentPage,
-        loading: payload.loading,
+        loading: payload.loading
       }
     case RECIEVE_CARS:
       const newPages = state.hasPages.indexOf(payload.currentPage) === -1 ? 

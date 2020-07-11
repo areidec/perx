@@ -14,7 +14,7 @@ class Api {
     return res
   }
 
-  getCarList = async (page = 1) => {
+  getCarList = async (page = 0) => {
     const res = await this._getFromRecource({
       url: 'vehicles/',
       qparams: {
